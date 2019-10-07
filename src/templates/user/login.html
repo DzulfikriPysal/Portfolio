@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+<li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'service' %}">Services</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a></li>
+<li class="nav-item submenu dropdown">
+	<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
+	<ul class="dropdown-menu">
+		<li class="nav-item"><a class="nav-link" href="{% url 'elements-path' %}">Elements</a></li>
+		<li class="nav-item"><a class="nav-link" href="{% url 'portfolio-details' %}">Portfolio Details</a></li>
+	</ul>
+</li>
+<li class="nav-item submenu dropdown">
+	<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+		<ul class="dropdown-menu">
+			<li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
+			<li class="nav-item"><a class="nav-link" href="{% url 'single-blog' %}">Blog Details</a></li>
+		</ul>
+</li>
+<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+<li class="nav-item active"><a class="nav-link" href="{% url 'login' %}">Admin</a></li>
+
+{% endblock %}
+
+
+{% block content %}
+			<div class="container" style="padding-top:150px;">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="banner_content">
+              <h2>Login Page</h2>
+              <form class="form-signin" method="post">{% csrf_token %}  
+                Email
+                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus style="margin-bottom:30px;">
+                Password
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+                {% for field in login_form %}
+                    <p>
+                      {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+                    </p>
+                {% endfor %}
+                {% if login_form.non_field_errors %}
+                  <div style="color: red">
+                    <p>{{login_form.non_field_errors}}</p>
+                  </div>
+                    
+                {% endif %}
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+
+              </form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+{% endblock %}

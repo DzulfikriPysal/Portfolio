@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block navigation%}
+<li class="nav-item"><a class="nav-link" href="{% url 'loggedInUser' %}">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Profile</a></li>
+<li class="nav-item active"><a class="nav-link" href="{% url 'post_page' %}">Blog Post</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
+
+{% endblock %}
+
+
+{% block content %}
+			<div class="container" style="padding-top:150px;">
+				<div class="row">
+					<div class="col-lg-7">
+						<div class="banner_content">
+                            <h1 class="text-uppercase" style="padding-bottom:50px;">Post Detail</h1>
+							<h3 class="text-uppercase">Hello {{ user.username }}</h3>
+
+                            <h3>!!! Currently to add and Update the post you will need to get to the /admin page to change</h3>
+
+                            {% for post in query %}
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h2 class="card-title">{{ post.title }}</h2>
+                                        <p class="card-text text-muted h6">{{ post.Author }} | {{ post.created_on}} </p>
+                                        <p class="card-text">{{post.content|slice:":200" }}</p>
+                                        <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+						</div>
+					</div>
+					
+				</div>
+			</div>
+{% endblock %}
